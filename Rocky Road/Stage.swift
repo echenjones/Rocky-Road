@@ -50,18 +50,20 @@ extension GameScene {
     func startRunningObstacles() {
         let spawn = SKAction.run {
             let columnNum = CGFloat.random(in: 1...3)
-            let columnWidth = (self.frame.width - 40) / 3 // change 40 if border is more/less
+            let col1 = 0 - self.frame.width * 0.25
+            let col3 = 0 + self.frame.width * 0.25
             let obstaclePosition: CGPoint
+            // randomize column
             if columnNum == 1 {
-                obstaclePosition = CGPoint(x: 0.5 * columnWidth + 20, y: self.frame.height + 50) // change 20 if border is more/less
+                obstaclePosition = CGPoint(x: col1, y: self.frame.height * 0.3)
             }
             else if columnNum == 2 {
-                obstaclePosition = CGPoint(x: self.frame.width / 2, y: self.frame.height + 50)
+                obstaclePosition = CGPoint(x: 0, y: self.frame.height * 0.3)
             }
             else {
-                obstaclePosition = CGPoint(x: 2.5 * columnWidth + 20, y: self.frame.height + 50) // change 20 if border is more/less
+                obstaclePosition = CGPoint(x: col3, y: self.frame.height * 0.3)
             }
-            
+            // randomize obstacle
             let obstacleNum = CGFloat.random(in: 1...2)
             if obstacleNum == 1 {
                 self.makeFlower(position: obstaclePosition)
