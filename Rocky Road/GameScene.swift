@@ -42,9 +42,17 @@ class GameScene: SKScene {
                 let location = touch.location(in: self)
                 if leftBtn.contains(location) {
                     // if not in column 1 -> move rocky left 1 column
+                    if (rocky.position.x >= -0.1) {
+                         let newPos = CGPoint(x: rocky.position.x - self.frame.width * 0.25, y: 0 - frame.height * 0.2)
+                         rocky.run(SKAction.move(to: newPos, duration: 0.15))
+                     }
                 }
                 else if rightBtn.contains(location) {
                     // if not in column 3 -> move rocky right 1 column
+                    if (rocky.position.x <= 0.1) {
+                         let newPos = CGPoint(x: rocky.position.x + self.frame.width * 0.25, y: 0 - frame.height * 0.2)
+                         rocky.run(SKAction.move(to: newPos, duration: 0.15))
+                     }
                 }
             }
         }
@@ -63,6 +71,7 @@ class GameScene: SKScene {
         makeLeftBtn()
         makeRightBtn()
         makeScoreLabel()
+        rocky = makeRocky()
     }
     
     func stopGame() {

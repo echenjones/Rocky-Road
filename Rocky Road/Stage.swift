@@ -15,6 +15,7 @@ extension GameScene {
         flower.name = "flower"
         flower.zPosition = 1
         flower.position = position
+        
         flower.physicsBody = SKPhysicsBody(texture: flowerTexture, size: flowerTexture.size())
         flower.physicsBody?.isDynamic = false
         flower.physicsBody?.affectedByGravity = false
@@ -34,6 +35,7 @@ extension GameScene {
         bush.name = "bush"
         bush.zPosition = 1
         bush.position = position
+        
         bush.physicsBody = SKPhysicsBody(texture: bushTexture, size: bushTexture.size())
         bush.physicsBody?.isDynamic = false
         bush.physicsBody?.affectedByGravity = false
@@ -74,6 +76,29 @@ extension GameScene {
         let obstacleSequence = SKAction.sequence([spawn, delay])
         let execute = SKAction.repeatForever(obstacleSequence)
         run(execute)
+    }
+    
+    func makeRocky() -> SKSpriteNode {
+        let rockyTexture = SKTexture(imageNamed: "rocky-1")
+        rocky = SKSpriteNode(texture: rockyTexture)
+        rocky.name = "rocky"
+        rocky.zPosition = 10
+        rocky.position = CGPoint(x: 0, y: 0 - frame.height * 0.2)
+        rocky.setScale(0.35)
+
+        rocky.physicsBody = SKPhysicsBody(texture: rockyTexture, size: rockyTexture.size())
+        rocky.physicsBody?.contactTestBitMask = rocky.physicsBody!.collisionBitMask
+        rocky.physicsBody?.isDynamic = true
+        rocky.physicsBody?.allowsRotation = false
+        rocky.physicsBody?.affectedByGravity = false
+
+        let anim = SKAction.animate(with: [
+            SKTexture(imageNamed: "rocky-1"),
+            SKTexture(imageNamed: "rocky-2"),], timePerFrame: 0.1)
+        let forever = SKAction.repeatForever(anim)
+        rocky.run(forever)
+        addChild(rocky)
+        return rocky
     }
     
     func makeStartBtn() {
@@ -119,6 +144,7 @@ extension GameScene {
         scoreLabel.fontColor = UIColor.systemOrange
         scoreLabel.fontSize = 52
         scoreLabel.zPosition = 10
+        scoreLabel.run(SKAction.scale(to: 1.0, duration: 0.25))
         addChild(scoreLabel)
     }
 }
