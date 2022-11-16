@@ -12,8 +12,6 @@ let kNewObstacleInterval: TimeInterval = 3
 
 class GameScene: SKScene {
     
-    //private var label : SKLabelNode?
-    //private var spinnyNode : SKShapeNode?
     var gameOne = true
     var gameOver = true
     var rocky = SKSpriteNode()
@@ -64,6 +62,7 @@ class GameScene: SKScene {
         restartBtn.removeFromParent()
         makeLeftBtn()
         makeRightBtn()
+        makeScoreLabel()
     }
     
     func stopGame() {
@@ -72,7 +71,12 @@ class GameScene: SKScene {
     }
     
     func standby() {
-        makeStartBtn()
+        if gameOne {
+            makeStartBtn()
+        }
+        else {
+            makeRestartBtn()
+        }
     }
     
     //var music = SKAudioNode(url: Bundle.main.url(forResource: "winds-of-story", withExtension: "mp3")!)

@@ -16,6 +16,10 @@
 		E37803E329231332003BB15A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E37803E229231332003BB15A /* Assets.xcassets */; };
 		E37803E629231332003BB15A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37803E429231332003BB15A /* LaunchScreen.storyboard */; };
 		E37804002924694C003BB15A /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37803FF2924694B003BB15A /* Stage.swift */; };
+		E378041C2924D1A8003BB15A /* FONTLOG-e017.txt in Resources */ = {isa = PBXBuildFile; fileRef = E37804182924D1A8003BB15A /* FONTLOG-e017.txt */; };
+		E378041D2924D1A8003BB15A /* LICENSE-65f9.txt in Resources */ = {isa = PBXBuildFile; fileRef = E37804192924D1A8003BB15A /* LICENSE-65f9.txt */; };
+		E378041F2924D1A8003BB15A /* info.txt in Resources */ = {isa = PBXBuildFile; fileRef = E378041B2924D1A8003BB15A /* info.txt */; };
+		E37804202924D1D0003BB15A /* Atari.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E378041A2924D1A8003BB15A /* Atari.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,10 @@
 		E37803E229231332003BB15A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E37803E529231332003BB15A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E37803FF2924694B003BB15A /* Stage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
+		E37804182924D1A8003BB15A /* FONTLOG-e017.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "FONTLOG-e017.txt"; sourceTree = "<group>"; };
+		E37804192924D1A8003BB15A /* LICENSE-65f9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LICENSE-65f9.txt"; sourceTree = "<group>"; };
+		E378041A2924D1A8003BB15A /* Atari.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Atari.ttf; sourceTree = "<group>"; };
+		E378041B2924D1A8003BB15A /* info.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = info.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +78,28 @@
 				E37803DF29231322003BB15A /* Main.storyboard */,
 				E37803E229231332003BB15A /* Assets.xcassets */,
 				E37803E429231332003BB15A /* LaunchScreen.storyboard */,
+				E37804162924D1A8003BB15A /* CustomFont */,
 			);
 			path = "Rocky Road";
+			sourceTree = "<group>";
+		};
+		E37804162924D1A8003BB15A /* CustomFont */ = {
+			isa = PBXGroup;
+			children = (
+				E37804172924D1A8003BB15A /* misc */,
+				E378041A2924D1A8003BB15A /* Atari.ttf */,
+				E378041B2924D1A8003BB15A /* info.txt */,
+			);
+			path = CustomFont;
+			sourceTree = "<group>";
+		};
+		E37804172924D1A8003BB15A /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				E37804182924D1A8003BB15A /* FONTLOG-e017.txt */,
+				E37804192924D1A8003BB15A /* LICENSE-65f9.txt */,
+			);
+			path = misc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,10 +161,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E37803E129231322003BB15A /* Main.storyboard in Resources */,
+				E378041D2924D1A8003BB15A /* LICENSE-65f9.txt in Resources */,
+				E37804202924D1D0003BB15A /* Atari.ttf in Resources */,
 				E37803D829231322003BB15A /* GameScene.sks in Resources */,
 				E37803E329231332003BB15A /* Assets.xcassets in Resources */,
 				E37803E629231332003BB15A /* LaunchScreen.storyboard in Resources */,
 				E37803DA29231322003BB15A /* Actions.sks in Resources */,
+				E378041C2924D1A8003BB15A /* FONTLOG-e017.txt in Resources */,
+				E378041F2924D1A8003BB15A /* info.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +330,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Rocky-Road-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -325,6 +358,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Rocky-Road-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

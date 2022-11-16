@@ -77,47 +77,45 @@ extension GameScene {
     }
     
     func makeStartBtn() {
-        startBtn = SKSpriteNode(imageNamed: "button_start")
-        //startBtn.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        startBtn = SKSpriteNode(imageNamed: "button-start")
         startBtn.position = CGPoint(x: 0, y: 0)
         startBtn.zPosition = 10
         startBtn.setScale(0)
-        startBtn.run(SKAction.scale(to: 1.0, duration: 0.7))
+        startBtn.run(SKAction.scale(to: 0.8, duration: 0.6))
         self.addChild(startBtn)
     }
     
     func makeRestartBtn() {
-        restartBtn = SKSpriteNode(imageNamed: "button_restart")
-        //restartBtn.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        restartBtn = SKSpriteNode(imageNamed: "button-restart")
         restartBtn.position = CGPoint(x: self.frame.width * 0.5, y: self.frame.height * 0.5)
         restartBtn.zPosition = 10
         restartBtn.setScale(0)
-        restartBtn.run(SKAction.scale(to: 1.0, duration: 0.7))
+        restartBtn.run(SKAction.scale(to: 0.8, duration: 0.6))
         self.addChild(restartBtn)
     }
     
     func makeLeftBtn() {
-        leftBtn = SKSpriteNode(imageNamed: "button_left")
-        //leftBtn.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        leftBtn.position = CGPoint(x: 0, y: 0)
+        leftBtn = SKSpriteNode(imageNamed: "button-left")
+        leftBtn.position = CGPoint(x: 0 - self.frame.width * 0.25, y: 0 - self.frame.height * 0.4)
         leftBtn.zPosition = 10
         leftBtn.setScale(0)
+        leftBtn.run(SKAction.scale(to: 0.3, duration: 0.25))
         self.addChild(leftBtn)
     }
     
     func makeRightBtn() {
-        rightBtn = SKSpriteNode(imageNamed: "button_right")
-        //rightBtn.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        rightBtn.position = CGPoint(x: self.frame.width * 0.2, y: self.frame.height * 0.2)
+        rightBtn = SKSpriteNode(imageNamed: "button-right")
+        rightBtn.position = CGPoint(x: self.frame.width * 0.25, y: 0 - self.frame.height * 0.4)
         rightBtn.zPosition = 10
         rightBtn.setScale(0)
+        rightBtn.run(SKAction.scale(to: 0.3, duration: 0.25))
         self.addChild(rightBtn)
     }
     
     func makeScoreLabel() {
         scoreLabel = SKLabelNode()
-        scoreLabel.position = CGPoint(x: self.frame.width * 0.7, y: self.frame.height * 0.8)
-        scoreLabel.fontName = "Marker Felt Wide"
+        scoreLabel.position = CGPoint(x: self.frame.width * 0.25, y: self.frame.height * 0.4)
+        scoreLabel.fontName = "PressStart2P"
         scoreLabel.fontColor = UIColor.systemOrange
         scoreLabel.fontSize = 52
         scoreLabel.zPosition = 10
