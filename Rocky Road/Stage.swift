@@ -9,68 +9,71 @@ import SpriteKit
 
 extension GameScene {
     
-    func makeFlower(position: CGPoint) {
+    func makeFlower(position: CGPoint) -> SKSpriteNode {
         let flowerTexture = SKTexture(imageNamed: "dandelion")
         let flower = SKSpriteNode(texture: flowerTexture)
         flower.name = "flower"
         flower.zPosition = 1
         flower.position = position
+        flower.setScale(0.3)
         
         flower.physicsBody = SKPhysicsBody(texture: flowerTexture, size: flowerTexture.size())
         flower.physicsBody?.isDynamic = false
         flower.physicsBody?.affectedByGravity = false
         
-        let distance = CGFloat(self.frame.height + 50)
+        let distance = CGFloat(2 * self.frame.height + 50)
         let moveFlower = SKAction.moveBy(x: 0, y: -distance, duration: TimeInterval(0.01 * distance))
         let removeFlower = SKAction.removeFromParent()
         let animateFlower = SKAction.sequence([moveFlower, removeFlower])
-        bush.run(animateFlower)
+        flower.run(animateFlower)
         
-        self.addChild(self.flower)
+        return flower
     }
     
-    func makeBush(position: CGPoint) {
+    func makeBush(position: CGPoint) -> SKSpriteNode {
         let bushTexture = SKTexture(imageNamed: "bush")
         let bush = SKSpriteNode(texture: bushTexture)
         bush.name = "bush"
         bush.zPosition = 1
         bush.position = position
+        bush.setScale(0.35)
         
         bush.physicsBody = SKPhysicsBody(texture: bushTexture, size: bushTexture.size())
         bush.physicsBody?.isDynamic = false
         bush.physicsBody?.affectedByGravity = false
         
-        let distance = CGFloat(self.frame.height + 50)
+        let distance = CGFloat(2 * self.frame.height + 50)
         let moveBush = SKAction.moveBy(x: 0, y: -distance, duration: TimeInterval(0.01 * distance))
         let removeBush = SKAction.removeFromParent()
         let animateBush = SKAction.sequence([moveBush, removeBush])
         bush.run(animateBush)
         
-        self.addChild(self.bush)
+        return bush
     }
     
     func startRunningObstacles() {
         let spawn = SKAction.run {
-            let columnNum = CGFloat.random(in: 1...3)
-            let columnWidth = (self.frame.width - 40) / 3 // change 40 if border is more/less
+            let columnNum = CGFloat.random(in: -75...75)
             let obstaclePosition: CGPoint
-            if columnNum == 1 {
-                obstaclePosition = CGPoint(x: 0.5 * columnWidth + 20, y: self.frame.height + 50) // change 20 if border is more/less
+            if columnNum < -25 {
+                obstaclePosition = CGPoint(x: 0 - self.frame.width * 0.275, y: self.frame.height)
             }
-            else if columnNum == 2 {
-                obstaclePosition = CGPoint(x: self.frame.width / 2, y: self.frame.height + 50)
+            else if columnNum >= -25 && columnNum <= 25 {
+                obstaclePosition = CGPoint(x: 0, y: self.frame.height)
             }
             else {
-                obstaclePosition = CGPoint(x: 2.5 * columnWidth + 20, y: self.frame.height + 50) // change 20 if border is more/less
+                obstaclePosition = CGPoint(x: self.frame.width * 0.275, y: self.frame.height)
             }
             
-            let obstacleNum = CGFloat.random(in: 1...2)
-            if obstacleNum == 1 {
-                self.makeFlower(position: obstaclePosition)
+            let obstacle: SKSpriteNode
+            let obstacleNum = CGFloat.random(in: -50...50)
+            if obstacleNum <= 0 {
+                obstacle = self.makeFlower(position: obstaclePosition)
             }
             else {
-                self.makeBush(position: obstaclePosition)
+                obstacle = self.makeBush(position: obstaclePosition)
             }
+            self.addChild(obstacle)
         }
         let delay = SKAction.wait(forDuration: kNewObstacleInterval)
         let obstacleSequence = SKAction.sequence([spawn, delay])
@@ -78,11 +81,66 @@ extension GameScene {
         run(execute)
     }
     
-    func makeRocky() -> SKSpriteNode {
+    func makeWorld(animate: Bool) {
+        /*enumerateChildNodes(withName: "worldLayer") { node, _ in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()
+            }
+        }
+        
+        for layer in 1...kNumWorldLayers {
+            let img = SKTexture(imageNamed: "bg0\(layer)")
+            for i in 0...1 {
+                let time = Double(layer) * kWorldAnimationFactor
+                let node = SKSpriteNode(texture: img)
+                node.name = "worldLayer"
+                node.anchorPoint = CGPoint.zero
+                node.zPosition = CGFloat(layer * -10)
+                node.position = CGPoint(x: 0 - node.size.width * CGFloat(i), y: 0 - node.size.height * 1.25)
+                addChild(node)
+                
+                if animate {
+                    let moveLeft = SKAction.moveBy(x: -node.size.width, y: 0, duration: time)
+                    let reset = SKAction.moveBy(x: node.size.width, y: 0, duration: 0)
+                    let sequence = SKAction.sequence([moveLeft, reset])
+                    let forever = SKAction.repeatForever(sequence)
+                    node.run(forever)
+                }
+            }
+        }*/
+        
+        enumerateChildNodes(withName: "background") { node, _ in
+            if let panel = node as? SKSpriteNode {
+                panel.removeFromParent()
+            }
+        }
+        
+        let img = SKTexture(imageNamed: "grass-background")
+        for i in 0...1 {
+            let time = kWorldAnimationFactor
+            let node = SKSpriteNode(texture: img)
+            node.name = "background"
+            node.anchorPoint = CGPoint.zero
+            node.zPosition = 0
+            node.setScale(0.7)
+            node.position = CGPoint(x: 0 - node.size.width * 0.5, y: 0 - node.size.height * CGFloat(i))
+            addChild(node)
+            
+            if animate {
+                let moveDown = SKAction.moveBy(x: 0, y: -self.frame.height, duration: time)
+                let reset = SKAction.moveBy(x: 0, y: self.frame.height, duration: 0)
+                let sequence = SKAction.sequence([moveDown, reset])
+                let forever = SKAction.repeatForever(sequence)
+                node.run(forever)
+            }
+        }
+    }
+    
+    func makeRocky() {
         let rockyTexture = SKTexture(imageNamed: "rocky-1")
         rocky = SKSpriteNode(texture: rockyTexture)
         rocky.name = "rocky"
-        rocky.zPosition = 10
+        rocky.zPosition = 9
         rocky.position = CGPoint(x: 0, y: 0 - frame.height * 0.2)
         rocky.setScale(0.35)
 
@@ -97,8 +155,7 @@ extension GameScene {
             SKTexture(imageNamed: "rocky-2"),], timePerFrame: 0.1)
         let forever = SKAction.repeatForever(anim)
         rocky.run(forever)
-        addChild(rocky)
-        return rocky
+        self.addChild(rocky)
     }
     
     func makeStartBtn() {
@@ -112,7 +169,7 @@ extension GameScene {
     
     func makeRestartBtn() {
         restartBtn = SKSpriteNode(imageNamed: "button-restart")
-        restartBtn.position = CGPoint(x: self.frame.width * 0.5, y: self.frame.height * 0.5)
+        restartBtn.position = CGPoint(x: 0, y: 0)
         restartBtn.zPosition = 10
         restartBtn.setScale(0)
         restartBtn.run(SKAction.scale(to: 0.8, duration: 0.6))
@@ -145,6 +202,6 @@ extension GameScene {
         scoreLabel.fontSize = 52
         scoreLabel.zPosition = 10
         scoreLabel.run(SKAction.scale(to: 1.0, duration: 0.25))
-        addChild(scoreLabel)
+        self.addChild(scoreLabel)
     }
 }

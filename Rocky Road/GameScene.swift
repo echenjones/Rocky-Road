@@ -8,7 +8,8 @@
 import SpriteKit
 import GameplayKit
 
-let kNewObstacleInterval: TimeInterval = 3
+let kNewObstacleInterval: TimeInterval = 5
+let kWorldAnimationFactor: Double = 13.5 // speed for background
 
 class GameScene: SKScene {
     
@@ -41,14 +42,12 @@ class GameScene: SKScene {
             for touch in touches {
                 let location = touch.location(in: self)
                 if leftBtn.contains(location) {
-                    // if not in column 1 -> move rocky left 1 column
                     if (rocky.position.x >= -0.1) {
                          let newPos = CGPoint(x: rocky.position.x - self.frame.width * 0.25, y: 0 - frame.height * 0.2)
                          rocky.run(SKAction.move(to: newPos, duration: 0.15))
                      }
                 }
                 else if rightBtn.contains(location) {
-                    // if not in column 3 -> move rocky right 1 column
                     if (rocky.position.x <= 0.1) {
                          let newPos = CGPoint(x: rocky.position.x + self.frame.width * 0.25, y: 0 - frame.height * 0.2)
                          rocky.run(SKAction.move(to: newPos, duration: 0.15))
@@ -60,7 +59,9 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         makeScoreLabel()
+        makeWorld(animate: false)
         standby()
+        physicsWorld.contactDelegate = self
     }
     
     func startGame() {
@@ -70,13 +71,16 @@ class GameScene: SKScene {
         restartBtn.removeFromParent()
         makeLeftBtn()
         makeRightBtn()
-        makeScoreLabel()
-        rocky = makeRocky()
+        makeWorld(animate: true)
+        makeRocky()
+        startRunningObstacles()
     }
     
     func stopGame() {
         gameOver = true
         removeAllActions()
+        gameOne = false
+        self.standby()
     }
     
     func standby() {
@@ -90,10 +94,30 @@ class GameScene: SKScene {
     
     //var music = SKAudioNode(url: Bundle.main.url(forResource: "winds-of-story", withExtension: "mp3")!)
     //let sndCollect = SKAction.playSoundFileNamed("ding", waitForCompletion: false)
-    //let sndSplate = SKAction.playSoundFileNamed("radar_fail.wav", waitForCompletion: false)
+    //let sndSplat = SKAction.playSoundFileNamed("radar_fail.wav", waitForCompletion: false)
     
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+}
+
+extension GameScene: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        if contact.bodyA.node?.name == "flower" || contact.bodyB.node?.name == "flower" {
+            if contact.bodyA.node == rocky {
+                contact.bodyB.node?.removeFromParent()
+            }
+            else {
+                contact.bodyA.node?.removeFromParent()
+            }
+            //run(sndCollect)
+            score += 1
+        }
+        else if contact.bodyA.node?.name == "bush" || contact.bodyB.node?.name == "bush" {
+            rocky.removeAllActions()
+            rocky.texture = SKTexture(imageNamed: "rocky-crash")
+            stopGame()
+        }
     }
 }
