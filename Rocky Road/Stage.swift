@@ -76,41 +76,66 @@ extension GameScene {
         run(execute)
     }
     
+    func makeWasp() -> SKSpriteNode {
+        
+        let waspTexture = SKTexture(imageNamed: "wasp_1")
+        wasp = SKSpriteNode(texture: waspTexture)
+        wasp.name = "wasp"
+        wasp.zPosition = 10
+        wasp.position = CGPoint(x: 0, y: 0 - frame.height * 0.3)
+
+        wasp.physicsBody = SKPhysicsBody(texture: waspTexture, size: waspTexture.size())
+        wasp.physicsBody?.contactTestBitMask = wasp.physicsBody!.collisionBitMask
+        wasp.physicsBody?.isDynamic = true
+        wasp.physicsBody?.allowsRotation = false
+        wasp.physicsBody?.affectedByGravity = true
+
+        let anim = SKAction.animate(with: [
+            SKTexture(imageNamed: "wasp_1"),
+            SKTexture(imageNamed: "wasp_2"),], timePerFrame: 0.1)
+        let forever = SKAction.repeatForever(anim)
+        wasp.run(forever)
+        addChild(wasp)
+        return wasp
+    }
+    
     func makeStartBtn() {
         startBtn = SKSpriteNode(imageNamed: "button_start")
         //startBtn.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         startBtn.position = CGPoint(x: 0, y: 0)
         startBtn.zPosition = 10
         startBtn.setScale(0)
-        startBtn.run(SKAction.scale(to: 1.0, duration: 0.7))
+        startBtn.run(SKAction.scale(to: 0.8, duration: 0.7))
         self.addChild(startBtn)
     }
     
     func makeRestartBtn() {
         restartBtn = SKSpriteNode(imageNamed: "button_restart")
         //restartBtn.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        restartBtn.position = CGPoint(x: self.frame.width * 0.5, y: self.frame.height * 0.5)
+        restartBtn.position = CGPoint(x: 0, y: 0)
         restartBtn.zPosition = 10
         restartBtn.setScale(0)
-        restartBtn.run(SKAction.scale(to: 1.0, duration: 0.7))
+        restartBtn.run(SKAction.scale(to: 0.8, duration: 0.7))
         self.addChild(restartBtn)
     }
     
     func makeLeftBtn() {
         leftBtn = SKSpriteNode(imageNamed: "button_left")
         //leftBtn.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        leftBtn.position = CGPoint(x: 0, y: 0)
+        leftBtn.position = CGPoint(x: 0 - self.frame.width * 0.25, y: 0 - self.frame.height * 0.4)
         leftBtn.zPosition = 10
         leftBtn.setScale(0)
+        leftBtn.run(SKAction.scale(to: 0.3, duration: 0.7))
         self.addChild(leftBtn)
     }
     
     func makeRightBtn() {
         rightBtn = SKSpriteNode(imageNamed: "button_right")
         //rightBtn.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        rightBtn.position = CGPoint(x: self.frame.width * 0.2, y: self.frame.height * 0.2)
+        rightBtn.position = CGPoint(x: 0 + self.frame.width * 0.25, y: 0 - self.frame.height * 0.4)
         rightBtn.zPosition = 10
         rightBtn.setScale(0)
+        rightBtn.run(SKAction.scale(to: 0.3, duration: 0.7))
         self.addChild(rightBtn)
     }
     

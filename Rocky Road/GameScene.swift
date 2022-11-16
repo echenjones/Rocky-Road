@@ -16,7 +16,7 @@ class GameScene: SKScene {
     //private var spinnyNode : SKShapeNode?
     var gameOne = true
     var gameOver = true
-    var rocky = SKSpriteNode()
+    var wasp = SKSpriteNode()
     var flower = SKNode()
     var bush = SKNode()
     var startBtn = SKSpriteNode()
@@ -72,7 +72,9 @@ class GameScene: SKScene {
     }
     
     func standby() {
-        makeStartBtn()
+        // makeStartBtn()
+        makeRightBtn()
+        makeLeftBtn()
     }
     
     //var music = SKAudioNode(url: Bundle.main.url(forResource: "winds-of-story", withExtension: "mp3")!)
