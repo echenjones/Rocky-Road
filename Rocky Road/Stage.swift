@@ -82,13 +82,14 @@ extension GameScene {
         wasp = SKSpriteNode(texture: waspTexture)
         wasp.name = "wasp"
         wasp.zPosition = 10
-        wasp.position = CGPoint(x: 0, y: 0 - frame.height * 0.3)
+        wasp.position = CGPoint(x: 0, y: 0 - frame.height * 0.1)
+        wasp.setScale(0.35)
 
         wasp.physicsBody = SKPhysicsBody(texture: waspTexture, size: waspTexture.size())
         wasp.physicsBody?.contactTestBitMask = wasp.physicsBody!.collisionBitMask
         wasp.physicsBody?.isDynamic = true
         wasp.physicsBody?.allowsRotation = false
-        wasp.physicsBody?.affectedByGravity = true
+        wasp.physicsBody?.affectedByGravity = false
 
         let anim = SKAction.animate(with: [
             SKTexture(imageNamed: "wasp_1"),
@@ -141,11 +142,12 @@ extension GameScene {
     
     func makeScoreLabel() {
         scoreLabel = SKLabelNode()
-        scoreLabel.position = CGPoint(x: self.frame.width * 0.7, y: self.frame.height * 0.8)
+        scoreLabel.position = CGPoint(x: 0 - self.frame.width * 0.25, y: self.frame.height * 0.4)
         scoreLabel.fontName = "Marker Felt Wide"
         scoreLabel.fontColor = UIColor.systemOrange
         scoreLabel.fontSize = 52
         scoreLabel.zPosition = 10
+        scoreLabel.run(SKAction.scale(to: 1.0, duration: 0.7))
         addChild(scoreLabel)
     }
 }

@@ -44,9 +44,17 @@ class GameScene: SKScene {
                 let location = touch.location(in: self)
                 if leftBtn.contains(location) {
                     // if not in column 1 -> move rocky left 1 column
+                    if (wasp.position.x >= -0.1) {
+                        let newPos = CGPoint(x: wasp.position.x - self.frame.width * 0.25, y: 0 - frame.height * 0.1)
+                        wasp.run(SKAction.move(to: newPos, duration: 0.15))
+                    }
                 }
                 else if rightBtn.contains(location) {
                     // if not in column 3 -> move rocky right 1 column
+                    if (wasp.position.x <= 0.1) {
+                        let newPos = CGPoint(x: wasp.position.x + self.frame.width * 0.25, y: 0 - frame.height * 0.1)
+                        wasp.run(SKAction.move(to: newPos, duration: 0.15))
+                    }
                 }
             }
         }
@@ -64,6 +72,8 @@ class GameScene: SKScene {
         restartBtn.removeFromParent()
         makeLeftBtn()
         makeRightBtn()
+        wasp = makeWasp()
+        makeScoreLabel()
     }
     
     func stopGame() {
@@ -72,9 +82,7 @@ class GameScene: SKScene {
     }
     
     func standby() {
-        // makeStartBtn()
-        makeRightBtn()
-        makeLeftBtn()
+        makeStartBtn()
     }
     
     //var music = SKAudioNode(url: Bundle.main.url(forResource: "winds-of-story", withExtension: "mp3")!)
