@@ -8,16 +8,21 @@
 import SpriteKit
 import GameplayKit
 
-let kNewObstacleInterval: TimeInterval = 5
-let kWorldAnimationFactor: Double = 13.5 // speed for background
+var kNewObstacleInterval: TimeInterval = 5
+var kWorldAnimationFactor: Double = 13.5 // speed for background
 
 class GameScene: SKScene {
     
     var gameOne = true
     var gameOver = true
+    var chooseLevel = false
     var rocky = SKSpriteNode()
     var flower = SKNode()
     var bush = SKNode()
+    var level = 0
+    var level1Btn = SKSpriteNode()
+    var level2Btn = SKSpriteNode()
+    var level3Btn = SKSpriteNode()
     var startBtn = SKSpriteNode()
     var restartBtn = SKSpriteNode()
     var leftBtn = SKSpriteNode()
@@ -33,8 +38,32 @@ class GameScene: SKScene {
         if gameOver == true {
             for touch in touches {
                 let location = touch.location(in: self)
-                if startBtn.contains(location) || restartBtn.contains(location) {
-                    startGame()
+                if chooseLevel == true {
+                    for touch in touches {
+                        let location = touch.location(in: self)
+                        if level1Btn.contains(location) {
+                            //level = 1
+                            kNewObstacleInterval = 4
+                            kWorldAnimationFactor = 13 // speed for background
+                            startGame()
+                        }
+                        else if level2Btn.contains(location) {
+                            //level = 2
+                            kNewObstacleInterval = 3
+                            kWorldAnimationFactor = 11 // speed for background
+                            startGame()
+                        }
+                        else if level3Btn.contains(location) {
+                            //level = 3
+                            kNewObstacleInterval = 2
+                            kWorldAnimationFactor = 9 // speed for background
+                            startGame()
+                        }
+                        
+                    }
+                }
+                else if startBtn.contains(location) || restartBtn.contains(location) {
+                    getLevel()
                 }
             }
         }
@@ -74,11 +103,21 @@ class GameScene: SKScene {
         physicsWorld.contactDelegate = self
     }
     
+    func getLevel() {
+        startBtn.removeFromParent()
+        restartBtn.removeFromParent()
+        makeLevel1Btn()
+        makeLevel2Btn()
+        makeLevel3Btn()
+    }
+    
     func startGame() {
         score = 0
         gameOver = false
-        startBtn.removeFromParent()
-        restartBtn.removeFromParent()
+        chooseLevel = false
+        level1Btn.removeFromParent()
+        level2Btn.removeFromParent()
+        level3Btn.removeFromParent()
         makeLeftBtn()
         makeRightBtn()
         makeWorld(animate: true)
@@ -126,7 +165,7 @@ extension GameScene: SKPhysicsContactDelegate {
         }
         else if contact.bodyA.node?.name == "bush" || contact.bodyB.node?.name == "bush" {
             rocky.removeAllActions()
-            rocky.texture = SKTexture(imageNamed: "wasp-crash")
+            rocky.texture = SKTexture(imageNamed: "winter-rocky-crash")
             stopGame()
         }
     }

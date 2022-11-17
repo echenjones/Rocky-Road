@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "mid-background.png",
+      "filename" : "game-over.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

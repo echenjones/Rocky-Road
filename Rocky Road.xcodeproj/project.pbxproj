@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E37065C62925CBBB003AE652 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E37065C52925CBBB003AE652 /* Assets.xcassets */; };
 		E37803D629231322003BB15A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37803D529231322003BB15A /* AppDelegate.swift */; };
 		E37803D829231322003BB15A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E37803D729231322003BB15A /* GameScene.sks */; };
 		E37803DA29231322003BB15A /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = E37803D929231322003BB15A /* Actions.sks */; };
 		E37803DC29231322003BB15A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37803DB29231322003BB15A /* GameScene.swift */; };
 		E37803DE29231322003BB15A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37803DD29231322003BB15A /* GameViewController.swift */; };
 		E37803E129231322003BB15A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37803DF29231322003BB15A /* Main.storyboard */; };
-		E37803E329231332003BB15A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E37803E229231332003BB15A /* Assets.xcassets */; };
 		E37803E629231332003BB15A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37803E429231332003BB15A /* LaunchScreen.storyboard */; };
 		E37804002924694C003BB15A /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37803FF2924694B003BB15A /* Stage.swift */; };
 		E378041C2924D1A8003BB15A /* FONTLOG-e017.txt in Resources */ = {isa = PBXBuildFile; fileRef = E37804182924D1A8003BB15A /* FONTLOG-e017.txt */; };
@@ -23,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E37065C52925CBBB003AE652 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E37803D229231322003BB15A /* Rocky Road.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rocky Road.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E37803D529231322003BB15A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E37803D729231322003BB15A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -30,7 +31,6 @@
 		E37803DB29231322003BB15A /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		E37803DD29231322003BB15A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E37803E029231322003BB15A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E37803E229231332003BB15A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E37803E529231332003BB15A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E37803FF2924694B003BB15A /* Stage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
 		E37804182924D1A8003BB15A /* FONTLOG-e017.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "FONTLOG-e017.txt"; sourceTree = "<group>"; };
@@ -76,8 +76,8 @@
 				E37803DD29231322003BB15A /* GameViewController.swift */,
 				E37803FF2924694B003BB15A /* Stage.swift */,
 				E37803DF29231322003BB15A /* Main.storyboard */,
-				E37803E229231332003BB15A /* Assets.xcassets */,
 				E37803E429231332003BB15A /* LaunchScreen.storyboard */,
+				E37065C52925CBBB003AE652 /* Assets.xcassets */,
 				E37804162924D1A8003BB15A /* CustomFont */,
 			);
 			path = "Rocky Road";
@@ -164,10 +164,10 @@
 				E378041D2924D1A8003BB15A /* LICENSE-65f9.txt in Resources */,
 				E37804202924D1D0003BB15A /* Atari.ttf in Resources */,
 				E37803D829231322003BB15A /* GameScene.sks in Resources */,
-				E37803E329231332003BB15A /* Assets.xcassets in Resources */,
 				E37803E629231332003BB15A /* LaunchScreen.storyboard in Resources */,
 				E37803DA29231322003BB15A /* Actions.sks in Resources */,
 				E378041C2924D1A8003BB15A /* FONTLOG-e017.txt in Resources */,
+				E37065C62925CBBB003AE652 /* Assets.xcassets in Resources */,
 				E378041F2924D1A8003BB15A /* info.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
