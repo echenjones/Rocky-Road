@@ -41,17 +41,27 @@ class GameScene: SKScene {
         else {
             for touch in touches {
                 let location = touch.location(in: self)
+                let column1 = 0 - self.frame.width * 0.25
+                let column2 = 0
+                let column3 = self.frame.width * 0.25
+                var newPos: CGPoint
                 if leftBtn.contains(location) {
-                    if (rocky.position.x >= -0.1) {
-                         let newPos = CGPoint(x: rocky.position.x - self.frame.width * 0.25, y: 0 - frame.height * 0.2)
-                         rocky.run(SKAction.move(to: newPos, duration: 0.15))
-                     }
+                    if (rocky.position.x > column3 - 2) {
+                        newPos = CGPoint(x: column2, y: 0 - Int(self.frame.height * 0.2))
+                    }
+                    else {
+                        newPos = CGPoint(x: column1, y: 0 - CGFloat(self.frame.height * 0.2))
+                    }
+                    rocky.run(SKAction.move(to: newPos, duration: 0.15))
                 }
                 else if rightBtn.contains(location) {
-                    if (rocky.position.x <= 0.1) {
-                         let newPos = CGPoint(x: rocky.position.x + self.frame.width * 0.25, y: 0 - frame.height * 0.2)
-                         rocky.run(SKAction.move(to: newPos, duration: 0.15))
-                     }
+                    if (rocky.position.x < column1 + 2) {
+                        newPos = CGPoint(x: column2, y: 0 - Int(self.frame.height * 0.2))
+                    }
+                    else {
+                        newPos = CGPoint(x: column3, y: 0 - CGFloat(self.frame.height * 0.2))
+                    }
+                    rocky.run(SKAction.move(to: newPos, duration: 0.15))
                 }
             }
         }
