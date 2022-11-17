@@ -8,18 +8,22 @@
 import SpriteKit
 import GameplayKit
 
-let kNewObstacleInterval: TimeInterval = 4
-let kWorldAnimationFactor: Double = 7 // speed for background
+var kNewObstacleInterval: TimeInterval = 2
+var kWorldAnimationFactor: Double = 5 // speed for background
 
 class GameScene: SKScene {
     
     var gameOne = true
     var gameOver = true
+    var chooseLevel = false
     var rocky = SKSpriteNode()
     var flower = SKNode()
     var bush = SKNode()
     var startBtn = SKSpriteNode()
     var restartBtn = SKSpriteNode()
+    var level1Btn = SKSpriteNode()
+    var level2Btn = SKSpriteNode()
+    var level3Btn = SKSpriteNode()
     var leftBtn = SKSpriteNode()
     var rightBtn = SKSpriteNode()
     var scoreLabel = SKLabelNode()
@@ -33,8 +37,31 @@ class GameScene: SKScene {
         if gameOver == true {
             for touch in touches {
                 let location = touch.location(in: self)
-                if startBtn.contains(location) || restartBtn.contains(location) {
-                    startGame()
+                if chooseLevel == true {
+                    for touch in touches {
+                        let location = touch.location(in: self)
+                        if level1Btn.contains(location) {
+                            //level = 1
+                            kNewObstacleInterval = 4
+                            kWorldAnimationFactor = 8 // speed for background
+                            startGame()
+                        }
+                        else if level2Btn.contains(location) {
+                            //level = 2
+                            kNewObstacleInterval = 3
+                            kWorldAnimationFactor = 6 // speed for background
+                            startGame()
+                        }
+                        else if level3Btn.contains(location) {
+                            //level = 3
+                            kNewObstacleInterval = 2
+                            kWorldAnimationFactor = 4 // speed for background
+                            startGame()
+                        }
+                    }
+                }
+                else if startBtn.contains(location) || restartBtn.contains(location) {
+                    getLevel()
                 }
             }
         }
@@ -74,10 +101,30 @@ class GameScene: SKScene {
         physicsWorld.contactDelegate = self
     }
     
+    func getLevel() {
+        chooseLevel = true
+        enumerateChildNodes(withName: "startButton") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()
+            }
+        }
+        //startBtn.removeFromParent()
+        //restartBtn.removeFromParent()
+        makeLevel1Btn()
+        makeLevel2Btn()
+        makeLevel3Btn()
+    }
+    
     func startGame() {
         // remove all previous elements
         // restartBtn.removeFromParent()
         rocky.removeFromParent()
+        
+        enumerateChildNodes(withName: "levelButton") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()
+            }
+        }
         
         enumerateChildNodes(withName: "gameStart") { (node, error) in
             if let layer = node as? SKSpriteNode {
@@ -100,6 +147,7 @@ class GameScene: SKScene {
         // initialiaze everything again
         score = 0
         gameOver = false
+        chooseLevel = false
         makeLeftBtn()
         makeRightBtn()
         makeWorld(animate: true)

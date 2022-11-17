@@ -75,7 +75,7 @@ extension GameScene {
             }
             self.addChild(obstacle)
         }
-        let delay = SKAction.wait(forDuration: kNewObstacleInterval)
+        let delay = SKAction.wait(forDuration: kNewObstacleInterval, withRange: 2)
         let obstacleSequence = SKAction.sequence([spawn, delay])
         let execute = SKAction.repeatForever(obstacleSequence)
         run(execute)
@@ -130,7 +130,7 @@ extension GameScene {
     
     func makeStartBtn() {
         startBtn = SKSpriteNode(imageNamed: "button-start")
-        startBtn.name = "gameStart"
+        startBtn.name = "startButton"
         startBtn.position = CGPoint(x: 0, y: 0)
         startBtn.zPosition = 10
         startBtn.setScale(0)
@@ -140,7 +140,7 @@ extension GameScene {
     
     func makeRestartBtn() {
         restartBtn = SKSpriteNode(imageNamed: "button-restart")
-        restartBtn.name = "gameStart"
+        restartBtn.name = "startButton"
         restartBtn.position = CGPoint(x: 0, y: 0)
         restartBtn.zPosition = 10
         restartBtn.setScale(0)
@@ -176,4 +176,35 @@ extension GameScene {
         scoreLabel.run(SKAction.scale(to: 1.0, duration: 0.25))
         self.addChild(scoreLabel)
     }
+    
+    func makeLevel1Btn() {
+        level1Btn = SKSpriteNode(imageNamed: "level1")
+        level1Btn.name = "levelButton"
+        level1Btn.setScale(0.3)
+        level1Btn.position = CGPoint(x: 0, y: 0 + level1Btn.frame.height + 20)
+        level1Btn.zPosition = 10
+        level1Btn.run(SKAction.scale(to: 0.3, duration: 0.25))
+        self.addChild(level1Btn)
+    }
+    
+    func makeLevel2Btn() {
+        level2Btn = SKSpriteNode(imageNamed: "level2")
+        level2Btn.name = "levelButton"
+        level2Btn.setScale(0.3)
+        level2Btn.position = CGPoint(x: 0, y: 0)
+        level2Btn.zPosition = 10
+        level2Btn.run(SKAction.scale(to: 0.3, duration: 0.25))
+        self.addChild(level2Btn)
+    }
+    
+    func makeLevel3Btn() {
+        level3Btn = SKSpriteNode(imageNamed: "level3")
+        level3Btn.name = "levelButton"
+        level3Btn.setScale(0.3)
+        level3Btn.position = CGPoint(x: 0, y: 0 - level3Btn.frame.height - 20)
+        level3Btn.zPosition = 10
+        level3Btn.run(SKAction.scale(to: 0.3, duration: 0.25))
+        self.addChild(level3Btn)
+    }
+    
 }
