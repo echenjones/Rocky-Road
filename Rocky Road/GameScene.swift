@@ -59,7 +59,6 @@ class GameScene: SKScene {
                             kWorldAnimationFactor = 9 // speed for background
                             startGame()
                         }
-                        
                     }
                 }
                 else if startBtn.contains(location) || restartBtn.contains(location) {
@@ -104,8 +103,14 @@ class GameScene: SKScene {
     }
     
     func getLevel() {
-        startBtn.removeFromParent()
-        restartBtn.removeFromParent()
+        chooseLevel = true
+        enumerateChildNodes(withName: "startButton") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()
+            }
+        }
+        //startBtn.removeFromParent()
+        //restartBtn.removeFromParent()
         makeLevel1Btn()
         makeLevel2Btn()
         makeLevel3Btn()
@@ -113,11 +118,18 @@ class GameScene: SKScene {
     
     func startGame() {
         score = 0
-        gameOver = false
         chooseLevel = false
-        level1Btn.removeFromParent()
-        level2Btn.removeFromParent()
-        level3Btn.removeFromParent()
+        gameOver = false
+        enumerateChildNodes(withName: "levelButton") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()
+            }
+        }
+        enumerateChildNodes(withName: "startButton") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()
+            }
+        }
         makeLeftBtn()
         makeRightBtn()
         makeWorld(animate: true)
