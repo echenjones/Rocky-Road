@@ -17,12 +17,12 @@ extension GameScene {
         flower.position = position
         flower.setScale(0.3)
         
-        flower.physicsBody = SKPhysicsBody(texture: flowerTexture, size: flowerTexture.size())
+        flower.physicsBody = SKPhysicsBody(texture: flowerTexture, size: flower.size)
         flower.physicsBody?.isDynamic = false
         flower.physicsBody?.affectedByGravity = false
         
         let distance = CGFloat(2 * self.frame.height + 50)
-        let moveFlower = SKAction.moveBy(x: 0, y: -distance, duration: TimeInterval(0.01 * distance))
+        let moveFlower = SKAction.moveBy(x: 0, y: -distance, duration: distance / self.frame.height * kWorldAnimationFactor)
         let removeFlower = SKAction.removeFromParent()
         let animateFlower = SKAction.sequence([moveFlower, removeFlower])
         flower.run(animateFlower)
@@ -31,19 +31,19 @@ extension GameScene {
     }
     
     func makeBush(position: CGPoint) -> SKSpriteNode {
-        let bushTexture = SKTexture(imageNamed: "bush")
+        let bushTexture = SKTexture(imageNamed: "bush" + String(Int.random(in: 1...2)))
         let bush = SKSpriteNode(texture: bushTexture)
         bush.name = "bush"
         bush.zPosition = 1
         bush.position = position
-        bush.setScale(0.35)
+        bush.setScale(0.15)
         
-        bush.physicsBody = SKPhysicsBody(texture: bushTexture, size: bushTexture.size())
+        bush.physicsBody = SKPhysicsBody(texture: bushTexture, size: bush.size)
         bush.physicsBody?.isDynamic = false
         bush.physicsBody?.affectedByGravity = false
         
         let distance = CGFloat(2 * self.frame.height + 50)
-        let moveBush = SKAction.moveBy(x: 0, y: -distance, duration: TimeInterval(0.01 * distance))
+        let moveBush = SKAction.moveBy(x: 0, y: -distance, duration: distance / self.frame.height * kWorldAnimationFactor)
         let removeBush = SKAction.removeFromParent()
         let animateBush = SKAction.sequence([moveBush, removeBush])
         bush.run(animateBush)
@@ -82,77 +82,46 @@ extension GameScene {
     }
     
     func makeWorld(animate: Bool) {
-        /*enumerateChildNodes(withName: "worldLayer") { node, _ in
-            if let layer = node as? SKSpriteNode {
-                layer.removeFromParent()
-            }
-        }
         
-        for layer in 1...kNumWorldLayers {
-            let img = SKTexture(imageNamed: "bg0\(layer)")
-            for i in 0...1 {
-                let time = Double(layer) * kWorldAnimationFactor
-                let node = SKSpriteNode(texture: img)
-                node.name = "worldLayer"
-                node.anchorPoint = CGPoint.zero
-                node.zPosition = CGFloat(layer * -10)
-                node.position = CGPoint(x: 0 - node.size.width * CGFloat(i), y: 0 - node.size.height * 1.25)
-                addChild(node)
-                
-                if animate {
-                    let moveLeft = SKAction.moveBy(x: -node.size.width, y: 0, duration: time)
-                    let reset = SKAction.moveBy(x: node.size.width, y: 0, duration: 0)
-                    let sequence = SKAction.sequence([moveLeft, reset])
-                    let forever = SKAction.repeatForever(sequence)
-                    node.run(forever)
-                }
-            }
-        }*/
-        
-        enumerateChildNodes(withName: "background") { node, _ in
-            if let panel = node as? SKSpriteNode {
-                panel.removeFromParent()
-            }
-        }
-        
-        let img = SKTexture(imageNamed: "grass-background")
+        let img = SKTexture(imageNamed: "background")
         for i in 0...1 {
             let time = kWorldAnimationFactor
             let node = SKSpriteNode(texture: img)
             node.name = "background"
-            node.anchorPoint = CGPoint.zero
+            // node.anchorPoint = CGPoint.zero
             node.zPosition = 0
-            node.setScale(0.7)
-            node.position = CGPoint(x: 0 - node.size.width * 0.5, y: 0 - node.size.height * CGFloat(i))
+            node.setScale(0.9)
+            node.position = CGPoint(x: 0, y: node.frame.height * CGFloat(i))
             addChild(node)
             
+            let moveDown = SKAction.moveBy(x: 0, y: -node.frame.height, duration: node.frame.height / self.frame.height * time)
+            let reset = SKAction.moveBy(x: 0, y: node.frame.height, duration: 0)
+            let sequence = SKAction.sequence([moveDown, reset])
+            let forever = SKAction.repeatForever(sequence)
+            
             if animate {
-                let moveDown = SKAction.moveBy(x: 0, y: -self.frame.height, duration: time)
-                let reset = SKAction.moveBy(x: 0, y: self.frame.height, duration: 0)
-                let sequence = SKAction.sequence([moveDown, reset])
-                let forever = SKAction.repeatForever(sequence)
                 node.run(forever)
             }
         }
     }
     
     func makeRocky() {
-        let rockyTexture = SKTexture(imageNamed: "rocky-1")
+        let rockyTexture = SKTexture(imageNamed: "wasp-1")
         rocky = SKSpriteNode(texture: rockyTexture)
         rocky.name = "rocky"
         rocky.zPosition = 9
         rocky.position = CGPoint(x: 0, y: 0 - frame.height * 0.2)
         rocky.setScale(0.35)
 
-        rocky.physicsBody = SKPhysicsBody(texture: rockyTexture, size: rockyTexture.size())
+        rocky.physicsBody = SKPhysicsBody(texture: rockyTexture, size: rocky.size)
         rocky.physicsBody?.contactTestBitMask = rocky.physicsBody!.collisionBitMask
         rocky.physicsBody?.isDynamic = true
         rocky.physicsBody?.allowsRotation = false
         rocky.physicsBody?.affectedByGravity = false
 
         let anim = SKAction.animate(with: [
-            SKTexture(imageNamed: "rocky-1"),
-            SKTexture(imageNamed: "rocky-2"),], timePerFrame: 0.1)
+            SKTexture(imageNamed: "wasp-1"),
+            SKTexture(imageNamed: "wasp-2"),], timePerFrame: 0.1)
         let forever = SKAction.repeatForever(anim)
         rocky.run(forever)
         self.addChild(rocky)

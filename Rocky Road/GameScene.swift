@@ -126,7 +126,7 @@ extension GameScene: SKPhysicsContactDelegate {
         }
         else if contact.bodyA.node?.name == "bush" || contact.bodyB.node?.name == "bush" {
             rocky.removeAllActions()
-            rocky.texture = SKTexture(imageNamed: "rocky-crash")
+            rocky.texture = SKTexture(imageNamed: "wasp-crash")
             stopGame()
         }
     }
