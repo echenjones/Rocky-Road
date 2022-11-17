@@ -84,6 +84,7 @@ extension GameScene {
     func makeWorld(animate: Bool) {
         
         let img = SKTexture(imageNamed: "background")
+        
         for i in 0...1 {
             let time = kWorldAnimationFactor
             let node = SKSpriteNode(texture: img)

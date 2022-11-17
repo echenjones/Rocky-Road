@@ -8,8 +8,8 @@
 import SpriteKit
 import GameplayKit
 
-let kNewObstacleInterval: TimeInterval = 5
-let kWorldAnimationFactor: Double = 13.5 // speed for background
+let kNewObstacleInterval: TimeInterval = 4
+let kWorldAnimationFactor: Double = 7 // speed for background
 
 class GameScene: SKScene {
     
@@ -75,10 +75,25 @@ class GameScene: SKScene {
     }
     
     func startGame() {
+        // remove all previous elements
+        restartBtn.removeFromParent()
+        rocky.removeFromParent()
+        enumerateChildNodes(withName: "bush") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()            }
+        }
+        
+        enumerateChildNodes(withName: "flower") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()
+            }
+        }
+        startBtn.removeFromParent()
+        
+        
+        // initialiaze everything again
         score = 0
         gameOver = false
-        startBtn.removeFromParent()
-        restartBtn.removeFromParent()
         makeLeftBtn()
         makeRightBtn()
         makeWorld(animate: true)
@@ -94,6 +109,25 @@ class GameScene: SKScene {
     }
     
     func standby() {
+        
+        enumerateChildNodes(withName: "background") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeAllActions()
+            }
+        }
+        
+        enumerateChildNodes(withName: "bush") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeAllActions()
+            }
+        }
+        
+        enumerateChildNodes(withName: "flower") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeAllActions()
+            }
+        }
+        
         if gameOne {
             makeStartBtn()
         }
