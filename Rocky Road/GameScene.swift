@@ -76,8 +76,14 @@ class GameScene: SKScene {
     
     func startGame() {
         // remove all previous elements
-        restartBtn.removeFromParent()
+        // restartBtn.removeFromParent()
         rocky.removeFromParent()
+        
+        enumerateChildNodes(withName: "gameStart") { (node, error) in
+            if let layer = node as? SKSpriteNode {
+                layer.removeFromParent()            }
+        }
+        
         enumerateChildNodes(withName: "bush") { (node, error) in
             if let layer = node as? SKSpriteNode {
                 layer.removeFromParent()            }
@@ -88,7 +94,7 @@ class GameScene: SKScene {
                 layer.removeFromParent()
             }
         }
-        startBtn.removeFromParent()
+        // startBtn.removeFromParent()
         
         
         // initialiaze everything again

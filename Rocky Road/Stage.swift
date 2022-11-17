@@ -130,6 +130,7 @@ extension GameScene {
     
     func makeStartBtn() {
         startBtn = SKSpriteNode(imageNamed: "button-start")
+        startBtn.name = "gameStart"
         startBtn.position = CGPoint(x: 0, y: 0)
         startBtn.zPosition = 10
         startBtn.setScale(0)
@@ -139,6 +140,7 @@ extension GameScene {
     
     func makeRestartBtn() {
         restartBtn = SKSpriteNode(imageNamed: "button-restart")
+        restartBtn.name = "gameStart"
         restartBtn.position = CGPoint(x: 0, y: 0)
         restartBtn.zPosition = 10
         restartBtn.setScale(0)
