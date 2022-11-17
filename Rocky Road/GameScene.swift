@@ -27,6 +27,7 @@ class GameScene: SKScene {
     var leftBtn = SKSpriteNode()
     var rightBtn = SKSpriteNode()
     var scoreLabel = SKLabelNode()
+    var scoreLabel2 = SKLabelNode()
     var score = 0 {
         didSet {
             scoreLabel.text = score.description
@@ -95,7 +96,6 @@ class GameScene: SKScene {
     }
     
     override func didMove(to view: SKView) {
-        makeScoreLabel()
         makeWorld(animate: false)
         standby()
         physicsWorld.contactDelegate = self
@@ -103,9 +103,14 @@ class GameScene: SKScene {
     
     func getLevel() {
         chooseLevel = true
-        enumerateChildNodes(withName: "startButton") { (node, error) in
-            if let layer = node as? SKSpriteNode {
-                layer.removeFromParent()
+        for name in ["levelButton", "startButton", "bush", "flower", "scoreLabel"] {
+            enumerateChildNodes(withName: name) { (node, error) in
+                if let layer = node as? SKSpriteNode {
+                    layer.removeFromParent()
+                }
+                if let layer = node as? SKLabelNode {
+                    layer.removeFromParent()
+                }
             }
         }
         //startBtn.removeFromParent()
@@ -120,34 +125,22 @@ class GameScene: SKScene {
         // restartBtn.removeFromParent()
         rocky.removeFromParent()
         
-        enumerateChildNodes(withName: "levelButton") { (node, error) in
-            if let layer = node as? SKSpriteNode {
-                layer.removeFromParent()
+        for name in ["levelButton", "startButton", "bush", "flower", "scoreLabel"] {
+            enumerateChildNodes(withName: name) { (node, error) in
+                if let layer = node as? SKSpriteNode {
+                    layer.removeFromParent()
+                }
+                if let layer = node as? SKLabelNode {
+                    layer.removeFromParent()
+                }
             }
         }
-        
-        enumerateChildNodes(withName: "gameStart") { (node, error) in
-            if let layer = node as? SKSpriteNode {
-                layer.removeFromParent()            }
-        }
-        
-        enumerateChildNodes(withName: "bush") { (node, error) in
-            if let layer = node as? SKSpriteNode {
-                layer.removeFromParent()            }
-        }
-        
-        enumerateChildNodes(withName: "flower") { (node, error) in
-            if let layer = node as? SKSpriteNode {
-                layer.removeFromParent()
-            }
-        }
-        // startBtn.removeFromParent()
-        
         
         // initialiaze everything again
         score = 0
         gameOver = false
         chooseLevel = false
+        makeScoreLabel()
         makeLeftBtn()
         makeRightBtn()
         makeWorld(animate: true)
@@ -163,6 +156,8 @@ class GameScene: SKScene {
     }
     
     func standby() {
+        
+        scoreLabel.removeFromParent()
         
         enumerateChildNodes(withName: "background") { (node, error) in
             if let layer = node as? SKSpriteNode {

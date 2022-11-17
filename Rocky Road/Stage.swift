@@ -83,7 +83,7 @@ extension GameScene {
     
     func makeWorld(animate: Bool) {
         
-        let img = SKTexture(imageNamed: "background")
+        let img = SKTexture(imageNamed: "background2")
         
         for i in 0...1 {
             let time = kWorldAnimationFactor
@@ -144,8 +144,19 @@ extension GameScene {
         restartBtn.position = CGPoint(x: 0, y: 0)
         restartBtn.zPosition = 10
         restartBtn.setScale(0)
-        restartBtn.run(SKAction.scale(to: 0.8, duration: 0.6))
+        restartBtn.run(SKAction.scale(to: 0.8, duration: 0.3))
+        
+        scoreLabel2 = SKLabelNode(text: String(score))
+        scoreLabel2.position = CGPoint(x: 0, y: -30)
+        scoreLabel2.name = "scoreLabel"
+        scoreLabel2.fontName = "PressStart2P"
+        scoreLabel2.fontColor = UIColor.systemRed
+        scoreLabel2.fontSize = 70
+        scoreLabel2.zPosition = 20
+        scoreLabel2.run(SKAction.scale(to: 1.0, duration: 100))
+        
         self.addChild(restartBtn)
+        self.addChild(scoreLabel2)
     }
     
     func makeLeftBtn() {
@@ -167,12 +178,12 @@ extension GameScene {
     }
     
     func makeScoreLabel() {
-        scoreLabel = SKLabelNode()
+        scoreLabel = SKLabelNode(text: String(score))
         scoreLabel.position = CGPoint(x: self.frame.width * 0.25, y: self.frame.height * 0.4)
         scoreLabel.fontName = "PressStart2P"
         scoreLabel.fontColor = UIColor.systemOrange
         scoreLabel.fontSize = 52
-        scoreLabel.zPosition = 10
+        scoreLabel.zPosition = 20
         scoreLabel.run(SKAction.scale(to: 1.0, duration: 0.25))
         self.addChild(scoreLabel)
     }
